@@ -1,3 +1,4 @@
+from rest_framework import serializers
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
 from rest_framework.serializers import Serializer
@@ -15,3 +16,14 @@ def randomQuiz(request, id):
     randomQuizs = random.sample(list(totalQuizs), id)
     serializer = QuizSerializer(randomQuizs, many = True)
     return Response(serializer.data)
+
+@api_view(['GET'])
+def showQuizAll(request):
+    totalQuizs = Quiz.objects.all()
+    serializer = QuizSerializer(totalQuizs, many = True)
+    return Response(serializer.data)
+
+
+@api_view(['POST'])
+def helloAPI(request):
+    return Response('hello world!!! ^^')
